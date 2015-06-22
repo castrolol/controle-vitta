@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "anydb-sql": "*",
+    "babel-runtime": "^5.6.4",
     "flux": "*",
     "hapi": "^8.6.1",
     "hapi-auth-bearer-token": "^3.1.1",
