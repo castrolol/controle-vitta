@@ -14,6 +14,7 @@ var babel = require("gulp-babel");
 var plumber = require("gulp-plumber");
 var rename = require("gulp-rename");
 var copy = require("gulp-copy");
+var less = require("gulp-less");
 
 var paths = {
 	client: {
@@ -26,8 +27,13 @@ var paths = {
 		dst: './build'
 	},
 	assets: {
-		src: './static/**/*.*',
+		src: ['./static/**/*.html', './static/**/*.css'],
 		dst: './dist'
+	},
+	less: {
+		src: './src/less/style.less',
+		watch: './src/less/**/*.less',
+		dst: './dist/css'
 	}
 }
 
@@ -62,7 +68,7 @@ gulp.task("js-in-vm", function() {
 		.pipe(plumber())
 		.pipe(gbrowserify({
 			transform:  [babelify.configure({ stage: 0, optional: ['runtime'] })],
-			extensions: ['.jsx'],
+			extensions: ['.jsx', '.js'],
 		}))
 		.pipe(rename('app.js'))
 		.pipe(sourcemaps.write('./sourcemaps'))
@@ -89,6 +95,13 @@ gulp.task("assets", function(){
 	
 });
 
+gulp.task("less", function(){
+	return gulp.src(paths.less.src)
+				.pipe(plumber())
+				.pipe(less())
+				.pipe(gulp.dest(paths.less.dst));
+});
+
 gulp.task("watch", function() {
 
 	watch(paths.server.src, function() {
@@ -97,6 +110,10 @@ gulp.task("watch", function() {
 	
 	watch(paths.assets.src, function() {
 		gulp.run(["assets"]);
+	});
+	
+	watch(paths.less.watch, function() {
+		gulp.run(["less"]);
 	});
 
 });
@@ -107,6 +124,6 @@ gulp.task("watch-for-vm", function() {
 	});
 })
 
-gulp.task("default", ["assets", "js", "build", "watch"]);
+gulp.task("default", ["assets", "less", "js", "build", "watch"]);
 
-gulp.task("vm", ["assets", "js-in-vm", "build", "watch", "watch-for-vm"]);
+gulp.task("vm", ["assets", "less", "js-in-vm", "build", "watch", "watch-for-vm"]);

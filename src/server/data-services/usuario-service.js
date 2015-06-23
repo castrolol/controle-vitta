@@ -5,44 +5,56 @@ class UsuarioService extends DataService.of("usuario") {
 	async all(){
 
 		var usuario = this.model;
-		return usuario
+		return await usuario
 					.select(usuario.uuid, usuario.nome, usuario.login)
-					.all()
-					.catch(e => console.log(e));
+					.all();
 
 	}
 
-	async create(usuario){
+	async create(payload){
 		var usuario = this.model;
-		let id = await usuario.insert(usuario).returning(usuario.uuid).exec();
-		return usuario.select(usuario.uuid, usuario.nome, usuario.login).get();
-
+		var entity = this.normalize(payload);
+		let id = await usuario.insert(entity).returning(usuario.uuid).exec();
+		return await usuario.select(usuario.uuid, usuario.nome, usuario.login).get();
 	}
 
 	async byToken(token){
 		
 		var usuario = this.model;
 
-		return	usuario
-					.select(usuario.uuid, usuario.nome, usuario.login)
-					.where(usuario.token.equals(token))
-					.get();
+		return await usuario
+						.select(usuario.uuid, usuario.nome, usuario.login)
+						.where(usuario.token.equals(token))
+						.get();
 	}
 
 	async credentials(login, pass, isCripted = false){
 		var usuario = this.model;
 
 		if(!isCripted){
-			pass = `mycatiscalled${login}andhesings${pass}whileplayingkeyboard`;
-			pass = sha512(pass);
+			pass = this.encrypt(login, pass); 
 		}
-
-		return	usuario
+		
+		var query =	usuario
 					.select(usuario.uuid, usuario.nome, usuario.login)
 					.where(usuario.login.equals(login))
-					.and(usuario.senha.equals(pass))
-					.get();
+					.and(usuario.senha.equals(pass));
+					
+					
+		var result = await query.get(); 
+		return result;
 
+	}
+	
+	encrypt(login, senha){
+		return sha512(`mycatiscalled${login}andhesings${senha}whileplayingkeyboard`);
+	}
+	
+	normalize(entity){
+		var login = entity.login;
+		var senha =this.encrypt(login,  entity.senha); 
+		entity.senha = senha;
+		
 	}
 
 }

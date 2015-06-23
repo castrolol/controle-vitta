@@ -7,7 +7,7 @@ class AuthService {
   login(username, password) {
 
     var req = request
-                .get(LOGIN_URL)
+                .post(LOGIN_URL)
                 .send({ username, password })
                 .end();
 
@@ -22,7 +22,7 @@ class AuthService {
   signup(nome, login, senha) {
 
     var req = request
-                .get(SIGNUP_URL)
+                .post(SIGNUP_URL)
                 .send({ nome, login, senha })
                 .end();
 
@@ -31,8 +31,11 @@ class AuthService {
 
   handleAuth(loginPromise) {
     return loginPromise
-      .then((response) => {
-        LoginActions.loginUser(response.id_token);
+      .then((response) => { 
+        if(!response.body || !response.body.token){
+          throw response.body || new Error("Erro desconhecido");
+        }
+        LoginActions.loginUser(response.body.token);
         return true;
       });
   }

@@ -1,33 +1,40 @@
 import usuarioService from "./data-services/usuario-service"; 
- class Auth {
+import jwt from 'jsonwebtoken'; 
+export const PRIVATEKEY = 'mycatplaysthefuckingkeyboard';
+
+class Auth {
 
 	install(app){
-		return;
+	 
+		var validate = async function (decodedToken, callback) {
+		
+		    var credentials = await usuarioService.byToken(decodedToken.uuid);
+		
+		
+		    if (!credentials) {
+		        return callback(error, false, credentials);
+		    }
+		
+		    return callback(null, true, credentials)
+		};
+
+
+		app.server.register(require('hapi-auth-jwt'), function (error) {
+		
+		    app.server.auth.strategy('simple', 'jwt', {
+		        key: PRIVATEKEY,
+		        validateFunc: validate
+		    });
+		});
+		
 		app.preparations.push(function(){
-			console.log("prepare!");
 			if(this.config && typeof this.config.auth != "undefined") return;
 
 			if(!this.config) this.config = {};
 			this.config.auth = "simple";
 
 		});
-
-		app.server.register(require('hapi-auth-bearer-token'), function (err) {
-
-		    app.server.auth.strategy('simple', 'bearer-access-token', {
-		        allowQueryToken: false,
-		        validateFunc: async function( token, callback ) {
  
-		            var usuario = await usuarioService.byToken(token);
-
-		            if(usuario){
-		                callback(null, true, { token: token, usuario: usuario })
-		            } else {
-		                callback(null, false, { token: token })
-		            }
-		        }
-		    });
-		});
 
 
 	}

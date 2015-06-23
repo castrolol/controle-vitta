@@ -1,6 +1,7 @@
 import React from 'react/addons';
 import ReactMixin from 'react-mixin';
 import Auth from '../../services/auth-service'
+import {Paper, TextField, FlatButton} from 'material-ui';
 
 export default class Login extends React.Component {
 
@@ -21,22 +22,66 @@ export default class Login extends React.Component {
       });
   }
 
+  getStyle(){
+    
+    return {
+      root: {
+        width: "400px",
+        margin: "0 auto",
+        transform: "translate(-50%, -50%)",
+        top: "50%",
+        left: "50%",
+        position: "absolute",
+      },
+      container: {
+        padding: "17px",
+      },
+      textBox: {
+        width: "100%"
+      },
+      actions: {
+        textAlign: "right" ,
+        marginTop: "20px"
+      },
+      divider: {
+        margin:0,
+        marginTop:"-1px",
+        marginLeft:0,
+        height:"1px",
+        border:"none",
+        backgroundColor:"#e0e0e0"
+      },
+      title: {
+        paddingTop: "16px",
+        marginBottom: "12px",
+        fontWeight: "300",
+        color: "rgba(0, 0, 0, 0.87)",
+        paddingLeft: "16px",
+      }
+    };
+    
+  }
+
   render() {
+    
+    var style = this.getStyle();
+    var handleLogin = this.login.bind(this);
+    
     return (
-      <div className="login jumbotron center-block">
-        <h1>Login</h1>
-        <form role="form">
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input type="text" valueLink={this.linkState('user')} className="form-control" id="username" placeholder="Username" />
+      <Paper style={style.root} >
+        <h2 style={style.title} >Acesso</h2>
+        <div style={style.container} >
+          <div>
+            <TextField style={style.textBox} valueLink={this.linkState('user')} placeholder="Usuário" />
+          </div>
+           <div>
+            <TextField type="password"  style={style.textBox} valueLink={this.linkState('password')} placeholder="Senha" />
+          </div>
+          <div style={style.actions} >
+            <FlatButton label="Acessar" secondary={true} onClick={handleLogin} />
+          </div>
         </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input type="password" valueLink={this.linkState('password')} className="form-control" id="password" ref="password" placeholder="Password" />
-        </div>
-        <button type="submit" className="btn btn-default" onClick={this.login.bind(this)}>Submit</button>
-      </form>
-    </div>
+      </Paper>
     );
   }
 }

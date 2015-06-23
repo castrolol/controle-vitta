@@ -4,11 +4,22 @@ import React from 'react';
 import LoginStore from '../stores/login-store'
 import { Route, RouteHandler, Link } from 'react-router';
 import AuthService from '../services/auth-service'
+import {Styles} from 'material-ui';
+import LayoutHeader from './layout/header';
+
+var ThemeManager = new Styles.ThemeManager();
 
 export default class AuthApp extends React.Component {
   constructor() {
     super()
     this.state = this._getLoginState();
+    ThemeManager.setTheme(ThemeManager.types.LIGHT);
+  }
+  
+  getChildContext() { 
+    return {
+      muiTheme: ThemeManager.getCurrentTheme()
+    };
   }
 
   _getLoginState() {
@@ -33,9 +44,7 @@ export default class AuthApp extends React.Component {
   render() {
     return (
         <div>
-          <header>
-            {this.headerItems}
-          </header>      
+          <LayoutHeader />  
           <main>
             <RouteHandler/>
           </main>
@@ -47,28 +56,9 @@ export default class AuthApp extends React.Component {
     e.preventDefault();
     AuthService.logout();
   }
-
-  get headerItems() {
-    if (!this.state.userLoggedIn) {
-      return (
-      <ul >
-        <li>
-          <Link to="login">Login</Link>
-        </li>
-        <li>
-          <Link to="signup">Signup</Link>
-        </li>
-      </ul>)
-    } else {
-      return (
-      <ul >
-        <li>
-          <Link to="home">Home</Link>
-        </li>
-        <li>
-          <a href="" onClick={this.logout}>Logout</a>
-        </li>
-      </ul>)
-    }
-  }
 }
+
+
+AuthApp.childContextTypes = {
+  muiTheme: React.PropTypes.object
+};

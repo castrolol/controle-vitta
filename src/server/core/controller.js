@@ -11,7 +11,6 @@ export default class Controller extends RouteContainer {
         
         this.routes.forEach( route => {
             var r = route();
-            console.log(r);
             server.route(r);
         });
         

@@ -1,7 +1,5 @@
-var BASE_URL = 'http://localhost:8000/';
-if( process.env.IP){
-  BASE_URL = 'http://' +  process.env.IP + ':' +  process.env.PORT  + '/';
-}
+var BASE_URL = 'http://controle-vitta-castrolol.c9.io/';
+ 
 
 export default {
   BASE_URL: BASE_URL,

@@ -68,15 +68,15 @@ get.at = function(path, config){
 }
 
 post.at = function(path, config){
-	return registerRoute.bind(this, "GET", path, config);
+	return registerRoute.bind(this, "POST", path, config);
 }
 
 put.at = function(path, config){
-	return registerRoute.bind(this, "GET", path, config);
+	return registerRoute.bind(this, "PUT", path, config);
 }
 
 del.at = function(path, config){
-	return registerRoute.bind(this, "GET", path, config);
+	return registerRoute.bind(this, "DELETE", path, config);
 }
 
 get.config = function(config){
@@ -84,15 +84,15 @@ get.config = function(config){
 }
 
 post.config = function(config){
-	return registerRoute.bind(this, "GET", null, config);
+	return registerRoute.bind(this, "POST", null, config);
 }
 
 put.config = function(config){
-	return registerRoute.bind(this, "GET", null, config);
+	return registerRoute.bind(this, "PUT", null, config);
 }
 
 del.config = function(config){
-	return registerRoute.bind(this, "GET", null, config);
+	return registerRoute.bind(this, "DELETE", null, config);
 }
 
 

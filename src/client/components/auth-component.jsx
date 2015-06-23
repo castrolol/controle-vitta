@@ -50,7 +50,7 @@ export default function (ComposedComponent)  {
 
   };
 
-  AuthenticatedComponent.displayName =  ComposedComponent.displayName + "AuthenticatedComponent";
+  //AuthenticatedComponent.displayName =  ComposedComponent.displayName + "AuthenticatedComponent";
   return AuthenticatedComponent;
 
 };

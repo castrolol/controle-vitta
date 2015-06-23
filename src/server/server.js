@@ -2,7 +2,7 @@ require("babel/polyfill");
 var db = require("./data/db");
 var Hapi = require("hapi");
 var fs = require("fs");
-var auth = require("./auth");
+import auth from "./auth";
 
 class Server {
 
@@ -50,6 +50,8 @@ class Server {
 		this.initControllers(this);
 
 		server.start();
+
+		console.log(" - server started!");
 
 	}
 

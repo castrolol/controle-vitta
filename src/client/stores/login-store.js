@@ -16,7 +16,7 @@ class LoginStore extends BaseStore {
     switch(action.actionType) {
       case LOGIN_USER:
         this._jwt = action.jwt;
-        this._user = jwt_decode(this._jwt);
+        if(this._jwt && this._jwt != "undefined") this._user = jwt_decode(this._jwt);
         this.emitChange();
         break;
       case LOGOUT_USER:
