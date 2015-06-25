@@ -7,6 +7,7 @@ export default function (ComposedComponent)  {
   class AuthenticatedComponent extends React.Component {
 
     static willTransitionTo(transition) {
+ 
       if (!LoginStore.isLoggedIn()) {
         transition.redirect('/login', {}, {'nextPath' : transition.path});
       }

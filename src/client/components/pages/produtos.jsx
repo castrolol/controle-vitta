@@ -1,9 +1,9 @@
 import React from 'react';
 import AuthenticatedComponent from '../auth-component'
 import Page from '../layout/page-layout';
-import {Paper} from 'material-ui';
-import {RouteHandler} from 'react-router';
-class Home extends React.Component {
+import {Paper, Table} from 'material-ui';
+
+class Produtos extends React.Component {
   
   getStyle(){
     return {
@@ -21,11 +21,14 @@ class Home extends React.Component {
     return (
       <Page>
         <Paper style={style.root} >
-          <RouteHandler />
+          <h1>Produtos</h1>
+          
+          
+          
         </Paper>
       </Page>
     );
   }
 }
 
-export default AuthenticatedComponent(Home);
+export default AuthenticatedComponent(Produtos);

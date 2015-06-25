@@ -57,6 +57,7 @@ class Server {
 
 	route(routeConfig){ 
 		routeConfig = this.prepare(routeConfig);
+		console.log(routeConfig.path);
 		this.server.route(routeConfig);
 
 	}

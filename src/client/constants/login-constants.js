@@ -1,4 +1,4 @@
-var BASE_URL = 'http://controle-vitta-castrolol.c9.io/';
+import {BASE_URL} from './app-constants';
  
 
 export default {

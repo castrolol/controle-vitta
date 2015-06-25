@@ -1,33 +1,16 @@
 import React from 'react';
 import {AppBar, FlatButton, IconButton} from 'material-ui';
 import AuthenticatedComponent from '../auth-component';
+import UserInfo from '../data/user-info';
+import {APP_NAME} from '../../constants/app-constants';
 
 class LayoutHeader extends React.Component {
-  
-  
-  getStyle(){
-    return {
-      
-    };
-  }
-  
+ 
   render() {
-    
-    var style = this.getStyle();
-    
-    var userInfoComponent = null;
-    
-    if(this.props.userLoggedIn){
-      userInfoComponent =   (<div>
-                                <span style={{  color: 'white' }} >{this.props.user.nome}</span>
-                                <IconButton iconStyle={{ color: 'white' }} iconClassName="mdi mdi-account"  tooltip="GitHub"/>
-                             </div>);
-    }
-  
-    
-    return (<AppBar title='Title' iconElementRight={userInfoComponent} />);
+     
+    return (<AppBar title={APP_NAME} iconElementRight={<UserInfo />} />);
   }
 }
  
 
-export default AuthenticatedComponent(LayoutHeader);
+export default LayoutHeader;

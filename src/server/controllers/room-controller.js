@@ -9,7 +9,7 @@ export default class RoomController extends Controller {
 	}
 
 	@get.at("")
-	all(req, reply) {
+	async all(req, reply) {
 		if(!this.rooms) this.rooms = ["Sala1", "Sala2", "Sala3"];
 		
 

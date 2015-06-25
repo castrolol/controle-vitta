@@ -14,6 +14,19 @@ export default class AuthApp extends React.Component {
     super()
     this.state = this._getLoginState();
     ThemeManager.setTheme(ThemeManager.types.LIGHT);
+     
+    ThemeManager.setPalette({
+       primary1Color: Styles.Colors.blueGrey500,
+      primary2Color: Styles.Colors.blueGrey700,
+      primary3Color: Styles.Colors.blueGrey100,
+      accent1Color: Styles.Colors.tealA200,
+      accent2Color: Styles.Colors.tealA400,
+      accent3Color: Styles.Colors.tealA100,
+      textColor: Styles.Colors.darkBlack,
+      canvasColor: Styles.Colors.white,
+      borderColor: Styles.Colors.grey300
+    });
+    
   }
   
   getChildContext() { 
@@ -33,6 +46,7 @@ export default class AuthApp extends React.Component {
   }
 
   componentDidMount() {
+    
     this.changeListener = this._onChange.bind(this);
     LoginStore.addChangeListener(this.changeListener);
   }

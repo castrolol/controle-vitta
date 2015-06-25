@@ -17,7 +17,7 @@ class RequestService {
 		this._jwt = false;
 	}
 
-	set token(token){
+	set token(token){ 
 		this._jwt = token;
 	}
 

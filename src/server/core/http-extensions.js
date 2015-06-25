@@ -21,7 +21,10 @@ function registerBaseRoute(path, target, property, descriptor){
 }
 
 function registerRoute(method, path, config, target, property, descriptor) {
-	path = path || property;
+ 	if(typeof path != "string"){
+		path = property;
+ 	}
+	
 
 	if (target instanceof RouteContainer) {
 		method = method.toLowerCase();
@@ -63,7 +66,7 @@ route.at = function(path){
 	return registerBaseRoute.bind(this, path);
 } 
  
-get.at = function(path, config){
+get.at = function(path, config){ 
 	return registerRoute.bind(this, "GET", path, config);
 }
 

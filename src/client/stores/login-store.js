@@ -1,7 +1,7 @@
 import {LOGIN_USER, LOGOUT_USER} from '../constants/login-constants';
 import BaseStore from '../base/store';
 import jwt_decode from 'jwt-decode';
-
+import request from '../ext/request';
 
 class LoginStore extends BaseStore {
 
@@ -17,6 +17,7 @@ class LoginStore extends BaseStore {
       case LOGIN_USER:
         this._jwt = action.jwt;
         if(this._jwt && this._jwt != "undefined") this._user = jwt_decode(this._jwt);
+        request.token = this._jwt;
         this.emitChange();
         break;
       case LOGOUT_USER:

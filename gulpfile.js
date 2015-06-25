@@ -39,7 +39,7 @@ var paths = {
 
 watchify.args.entries = [paths.client.src];
 watchify.args.debug = true;
-watchify.args.extensions = [".jsx"];
+watchify.args.extensions = [".jsx"]; 
 
 var w = watchify(browserify(watchify.args));
 w.transform(babelify, {
@@ -68,7 +68,7 @@ gulp.task("js-in-vm", function() {
 		.pipe(plumber())
 		.pipe(gbrowserify({
 			transform:  [babelify.configure({ stage: 0, optional: ['runtime'] })],
-			extensions: ['.jsx', '.js'],
+			extensions: ['.jsx', '.js'] 
 		}))
 		.pipe(rename('app.js'))
 		.pipe(sourcemaps.write('./sourcemaps'))

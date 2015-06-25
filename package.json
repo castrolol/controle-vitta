@@ -23,6 +23,7 @@
     "gulp-sourcemaps": "^1.5.2",
     "gulp-util": "^3.0.5",
     "gulp-watch": "^4.2.4",
+    "reactify": "^1.1.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.2.2"
@@ -35,6 +36,7 @@
     "hapi": "^8.6.1",
     "hapi-auth-bearer-token": "^3.1.1",
     "hapi-auth-jwt": "^2.1.2",
+    "immutable": "^3.7.4",
     "js-sha512": "^0.2.2",
     "jsonwebtoken": "^5.0.2",
     "jwt-decode": "^1.1.1",
@@ -43,6 +45,7 @@
     "react-mixin": "^1.4.0",
     "react-router": "*",
     "superagent": "*",
-    "superagent-promise": "*"
+    "superagent-promise": "*",
+    "velocity-transition-group": "^1.1.2"
   }
 }
