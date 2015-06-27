@@ -5,6 +5,8 @@ import {Paper, Table} from 'material-ui';
 import Immutable from 'immutable';
 import IngredienteActions from '../../actions/ingrediente-actions';
 import IngredienteStore from '../../stores/ingrediente-store';
+import DataGrid from '../data/data-grid';
+import Number from '../data/number';
 
 class Ingredientes extends React.Component {
   
@@ -38,41 +40,36 @@ class Ingredientes extends React.Component {
   
  
   getRowData(){
-     
-    return this.state.ingredientes.map(function(ingrediente){
-      
-        return {  
-                id: {content: ingrediente.get("ingrediente_id") },
-                nome: {content: ingrediente.get("nome")},
-                unidadeMedida: {content: ingrediente.get('unidade_medida')},
-                valor: {content: ingrediente.get('valor')},
-        };
-      
-    }).toJS();
+ 
+    return this.state.ingredientes;
     
   }
   
   getColData(){
     return {
         headers: {
-          id: {
-            content: 'id',
-            tooltip: '#'
+          ingrediente_id: {
+            content: '#',
+            tooltip: 'Código do Ingrediente',
+            style: { width: "20px" }
           },
           nome: {
-            content: 'nome',
-            tooltip: 'Nome'
+            content: 'Nome',
+            tooltip: 'Nome do Ingrediente'
           },
-          unidadeMedida: {
-            content: 'unidade_medida',
-            tooltip: 'Unidade Medida'
+          unidade_medida: {
+            content: 'Unidade Medida',
+            tooltip: 'Unidade Medida' , 
+            style: { width: "150px" }
           },
           valor: {
-            content: 'valor',
-            tooltip: 'Valor (R$)'
+            content: 'Valor (R$)',
+            tooltip: 'Valor Em Reais' , 
+            style: { width: "100px" },
+            handler: x => <Number value={x} format="currency" />
           }
        },
-       order: ['id', 'name', 'status']
+       order: ['ingrediente_id', 'nome', 'unidadeMedida', 'valor']
     }
   }
   
@@ -84,12 +81,9 @@ class Ingredientes extends React.Component {
     let colData = this.getColData();
  
     let table = null;
-    
+    debugger;
     if(rowData.length ){
-      table = <Table
-                headerColumns={colData.headers}
-                columnOrder={colData.order}
-                rowData={rowData} />;
+      table = <DataGrid cols={colData.headers} data={rowData} keyProp="ingrediente_id" />;
     }
     
     return (
@@ -101,6 +95,7 @@ class Ingredientes extends React.Component {
       </Page>
     );
   }
-}
+} 
+  
 
 export default AuthenticatedComponent(Ingredientes);

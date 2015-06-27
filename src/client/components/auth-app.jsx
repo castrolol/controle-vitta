@@ -29,6 +29,15 @@ export default class AuthApp extends React.Component {
     
   }
   
+  static get childContextTypes() {
+    return {
+      muiTheme: React.PropTypes.object
+    }
+    
+  }
+  
+  
+  
   getChildContext() { 
     return {
       muiTheme: ThemeManager.getCurrentTheme()
@@ -71,8 +80,3 @@ export default class AuthApp extends React.Component {
     AuthService.logout();
   }
 }
-
-
-AuthApp.childContextTypes = {
-  muiTheme: React.PropTypes.object
-};

@@ -15,6 +15,7 @@ var plumber = require("gulp-plumber");
 var rename = require("gulp-rename");
 var copy = require("gulp-copy");
 var less = require("gulp-less");
+var del = require('del');
 
 var paths = {
 	client: {
@@ -75,7 +76,7 @@ gulp.task("js-in-vm", function() {
 		.pipe(gulp.dest(paths.client.dst));
 });
 
-gulp.task("build", function() {
+gulp.task("build",['clean:build'], function() {
 
 	return gulp.src(paths.server.src)
 		.pipe(plumber())
@@ -85,6 +86,10 @@ gulp.task("build", function() {
 		}))
 		.pipe(gulp.dest(paths.server.dst));
 
+});
+
+gulp.task('clean:build', function (cb) {
+  del([paths.server.dst], cb);
 });
 
 gulp.task("assets", function(){

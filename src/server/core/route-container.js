@@ -23,6 +23,7 @@ export default class RouteContainer {
 			if(this.getBaseRoute){
 				routePath = "/" + this.getBaseRoute() + routePath;
 			}
+			
 			return {
 				path:  routePath,
 				method: method,

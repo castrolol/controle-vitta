@@ -10,12 +10,12 @@ export default class IngredienteController extends Controller {
 	 	super(); 
 	}
 
-	@get.at("")
+	@get.at("", { auth: null })
 	async todos(req, reply){
-
+ 
 		try{
 			let todos = await ingredienteService.all();	
- 			console.log("ok1");
+ 			
  			todos.forEach(function(ingrediente){
  				ingrediente.valor = ingrediente.valor;
  			});
